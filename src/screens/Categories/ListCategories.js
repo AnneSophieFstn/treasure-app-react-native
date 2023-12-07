@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Dimensions, Pressable, StyleSheet, Text, View } from "react-native";
 import { useEffect, useState } from "react";
@@ -59,11 +58,6 @@ export default function ListCategories({ navigation }) {
           </View>
         </Pressable>
       ))}
-      {/* <Text>ListCategories</Text>
-      <Button
-        title="Go to LISTE PRODUITS"
-        onPress={() => navigation.navigate("Liste produits")}
-      /> */}
     </View>
   );
 }

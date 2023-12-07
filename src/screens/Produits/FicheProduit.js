@@ -1,10 +1,10 @@
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
-import Mario from "../../../assets/products/mario.jpg";
-import { Ionicons, FontAwesome } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 import { Button } from "@rneui/themed";
 import { useEffect, useState } from "react";
 import { collection, doc, getDoc } from "firebase/firestore";
-import { FIREBASE_DB } from "../../../firebaseConfig";
+import { FIREBASE_DB, FIREBASE_STORAGE } from "../../../firebaseConfig";
+import { getDownloadURL, ref } from "firebase/storage";
 
 export default function FicheProduit({ route }) {
   const { productId } = route.params;
@@ -16,8 +16,13 @@ export default function FicheProduit({ route }) {
       const productCollection = doc(collection(FIREBASE_DB, "toys"), productId);
       const queryProductSnapshot = await getDoc(productCollection);
 
+      const imageURL = await getDownloadURL(
+        ref(FIREBASE_STORAGE, queryProductSnapshot.data().imageUrl)
+      );
+
       const productData = {
         id: queryProductSnapshot.id,
+        imageUrl: imageURL,
         name: queryProductSnapshot.data().name,
         description: queryProductSnapshot.data().description,
         color: queryProductSnapshot.data().color,
@@ -43,7 +48,10 @@ export default function FicheProduit({ route }) {
         {product ? (
           <View>
             <View>
-              <Image source={Mario} style={{ width: "100%", height: 250 }} />
+              <Image
+                source={{ uri: product.imageUrl }}
+                style={{ width: "100%", height: 250 }}
+              />
             </View>
 
             <View

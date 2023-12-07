@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Dimensions, Image, ScrollView, Text, View } from "react-native";
 import { Input, Button } from "@rneui/themed";
-import { Ionicons, MaterialIcons, EvilIcons } from "@expo/vector-icons";
-import Mario from "../../../assets/products/mario.jpg";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import Logo from "../../../assets/logo-app.jpg";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { FIREBASE_AUTH } from "../../../firebaseConfig";
 
 function Inscription({ navigation }) {
   const [email, setEmail] = useState("");
@@ -13,15 +14,15 @@ function Inscription({ navigation }) {
   const [isConfirmPasswordSecure, setIsConfirmPasswordSecure] = useState(true);
 
   const samePassword = () => password === confirmPassword;
-  const auth = getAuth();
 
   const signUp = () => {
-    createUserWithEmailAndPassword(auth, email, password)
+    createUserWithEmailAndPassword(FIREBASE_AUTH, email, password)
       .then((userCredential) => {
         // Signed up
         const user = userCredential.user;
-        console.log(user.email);
-        // ...
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -52,12 +53,11 @@ function Inscription({ navigation }) {
         >
           <View style={{ alignItems: "center" }}>
             <Image
-              source={Mario}
+              source={Logo}
               style={{
                 height: 200,
                 width: 200,
                 marginBottom: 30,
-                borderRadius: 200,
                 borderColor: "green",
                 overflow: "hidden",
               }}
@@ -182,7 +182,7 @@ function Inscription({ navigation }) {
                 onPress={signUp}
                 buttonStyle={{
                   borderRadius: 30,
-                  backgroundColor: "#FF9A62",
+                  backgroundColor: "#F68741",
                   paddingLeft: 30,
                   paddingRight: 30,
                   paddingBottom: 10,

@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import ListCategories from "../screens/Categories/ListCategories";
-import Connexion from "../screens/Auth/Connexion";
 import { Ionicons, FontAwesome } from "@expo/vector-icons";
+import Profil from "../screens/Auth/Profil";
 
 const Tab = createBottomTabNavigator();
 
@@ -22,7 +22,7 @@ export default function TabNavigation() {
       />
       <Tab.Screen
         name="Profile"
-        component={Connexion}
+        component={Profil}
         options={{
           headerShown: false,
           tabBarIcon: () => <FontAwesome name="user" size={24} color="black" />,

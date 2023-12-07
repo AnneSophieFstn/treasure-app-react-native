@@ -1,30 +1,22 @@
-import React, { useEffect, useState } from "react";
-import {
-  Dimensions,
-  Image,
-  Text,
-  View,
-  useWindowDimensions,
-} from "react-native";
+import React, { useState } from "react";
+import { Alert, Dimensions, Image, Text, View } from "react-native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { Input, Button } from "@rneui/themed";
-import Mario from "../../../assets/products/mario.jpg";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import Logo from "../../../assets/logo-app.jpg";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { FIREBASE_AUTH } from "../../../firebaseConfig";
 
 function Connexion({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isPasswordSecure, setIsPasswordSecure] = useState(true);
-  const auth = getAuth();
 
   const signIn = () => {
-    signInWithEmailAndPassword(auth, email, password)
+    signInWithEmailAndPassword(FIREBASE_AUTH, email, password)
       .then((userCredential) => {
         // Signed up
         const user = userCredential.user;
-        console.log(user.email);
-        console.log("Connecter avec succes");
-        // ...
+        navigation.navigate("Accueil", { screen: "Liste categories" });
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -50,12 +42,11 @@ function Connexion({ navigation }) {
       >
         <View style={{ alignItems: "center" }}>
           <Image
-            source={Mario}
+            source={Logo}
             style={{
               height: 200,
               width: 200,
               marginBottom: 30,
-              borderRadius: 200,
               borderColor: "green",
               overflow: "hidden",
             }}
@@ -133,7 +124,7 @@ function Connexion({ navigation }) {
             onPress={signIn}
             buttonStyle={{
               borderRadius: 30,
-              backgroundColor: "#FF9A62",
+              backgroundColor: "#F68741",
               paddingLeft: 30,
               paddingRight: 30,
               paddingBottom: 10,
@@ -151,17 +142,6 @@ function Connexion({ navigation }) {
                   onPress={() => navigation.push("Inscription")}
                 >
                   S'inscrire
-                </Text>
-              </Text>
-            </View>
-            <View>
-              <Text>
-                Mot de passe oublié ?{" "}
-                <Text
-                  style={{ fontWeight: "bold" }}
-                  onPress={() => navigation.push("ForgotPassword")}
-                >
-                  Cliquez-ici
                 </Text>
               </Text>
             </View>

@@ -27,3 +27,13 @@ Une application de même type que **YUKA** mais pour les jouets.
 
     $ npm install
     $ npm run start
+
+## Screenshots
+
+![Fiche produit](https://ibb.co/PrMpTrX)
+![Inscription](https://ibb.co/X4W8wSN)
+![Connexion](https://ibb.co/0mtVNgB)
+![Liste produit - Pas de produit](https://ibb.co/ZXj2S51)
+![Liste produit](https://ibb.co/D50gHZ0)
+![Liste catégorie](https://ibb.co/sVKr4zf)
+![Profil - Boutton](https://ibb.co/MgvT0nP)
